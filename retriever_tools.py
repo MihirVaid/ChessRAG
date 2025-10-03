@@ -16,7 +16,7 @@ def load_all_retriever_tools():
             if os.path.isdir(path):
                 try:
                     vectordb = FAISS.load_local(path, embeddings, allow_dangerous_deserialization=True)
-                    retriever = vectordb.as_retriever()
+                    retriever = vectordb.as_retriever(search_kwargs={"k": 3})
 
                     # Tool name: ensure uniqueness
                     tool_name = f"{dirname}_retriever"
@@ -37,7 +37,7 @@ def load_all_retriever_tools():
     if os.path.exists(OPENING_BOOK_PATH):
         try:
             vectordb1 = FAISS.load_local(OPENING_BOOK_PATH, embeddings, allow_dangerous_deserialization=True)
-            opening_retriever = vectordb1.as_retriever()
+            retriever = vectordb.as_retriever(search_kwargs={"k": 3})
             opening_retriever_tool = create_retriever_tool(
                 opening_retriever,
                 "opening_book_retriever",
@@ -51,3 +51,4 @@ def load_all_retriever_tools():
 
 tools = load_all_retriever_tools()
 print([t.name for t in tools])
+
