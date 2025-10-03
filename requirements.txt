@@ -1,0 +1,13 @@
+streamlit
+python-chess
+cairosvg
+pillow
+python-dotenv
+requests
+langchain_core
+langchain_community
+langchain_google_genai
+langchain-huggingface
+sentence-transformers
+faiss-cpu
+nest_asyncio
