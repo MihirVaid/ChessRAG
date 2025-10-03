@@ -27,8 +27,10 @@ page = st.sidebar.radio(
     ["Home", "PGN Saver", "PGN Scraper", "PGN Viewer", "RAG Agent"]
 )
 if st.sidebar.button("🔄 Reload RAG Tools"):
-    st.session_state.agent_executor = init_rag_agent()
-    st.success("RAG Agent tools reloaded!")
+    with st.spinner("Loading new retrievers..."):
+        st.session_state.agent_executor = init_rag_agent()
+    st.success("RAG Agent reloaded with updated tools")
+
 #HOME
 if page == "Home":
     st.write("Welcome! Use the sidebar to select a tool.")
@@ -125,3 +127,4 @@ elif page == "RAG Agent":
         result = st.session_state.agent_executor.invoke({"question": input_text})
         st.subheader("Answer:")
         st.write(result["output"])
+
